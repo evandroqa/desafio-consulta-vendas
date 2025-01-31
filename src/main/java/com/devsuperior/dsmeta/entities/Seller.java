@@ -1,14 +1,14 @@
 package com.devsuperior.dsmeta.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_seller")
@@ -22,7 +22,7 @@ public class Seller {
 	private String phone;
 	
 	@OneToMany(mappedBy = "seller")
-	private List<Sale> sales = new ArrayList<>();
+	private Set<Sale> sales = new HashSet<>();
 	
 	public Seller() {
 	}
@@ -66,7 +66,4 @@ public class Seller {
 		this.phone = phone;
 	}
 
-	public List<Sale> getSales() {
-		return sales;
-	}	
 }
