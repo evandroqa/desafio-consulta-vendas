@@ -10,7 +10,6 @@ public class SaleMinDTO {
 	private Long id;
 	private LocalDate date;
 	private Double amount;
-	// private Seller seller;
 	private String sellerName;
 	
 	public SaleMinDTO() {
@@ -49,5 +48,5 @@ public class SaleMinDTO {
 
 	public void setSellerName(String sellerName) {
 		this.sellerName = sellerName;
-	}
+	}	
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
+import com.devsuperior.dsmeta.dto.SaleQuantitiesDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 
@@ -32,8 +33,18 @@ public class SaleService {
 	}
 	 
 	@Transactional(readOnly = true)
-	public Page<SaleMinDTO> findPaginado(String minDate, String maxDate, String name, Pageable pageable) {
-
+	public Page<SaleMinDTO> findSalesByDateRange(String minDate, String maxDate, String name, Pageable pageable) {
+		validateParameters(minDate, maxDate);
+		return repository.searchSalesByDateRange(ldInicio, ldFinal, name, pageable).map(x -> new SaleMinDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public Page<SaleQuantitiesDTO> findQuantitiesSalesByDateRange(String minDate, String maxDate, Pageable pageable) {
+		validateParameters(minDate, maxDate);
+		return repository.searchQuantitiesSalesByDateRange(ldInicio, ldFinal, pageable); //.map(x -> new SaleQuantitiesDTO(x));
+	}
+	
+	public void validateParameters(String minDate, String maxDate) {
         if (maxDate.equals("")) {
         	ldFinal = LocalDate.ofInstant(Instant.now(), ZoneId.systemDefault());
 		} else {
@@ -44,7 +55,6 @@ public class SaleService {
         } else {
         	ldInicio = LocalDate.parse(minDate);
         }
-
-		return repository.searchPaginado(ldInicio, ldFinal, name, pageable).map(x -> new SaleMinDTO(x));
 	}
+	
 }

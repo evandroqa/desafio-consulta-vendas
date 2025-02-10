@@ -85,4 +85,5 @@ public class Sale {
 	public void setSeller(Seller seller) {
 		this.seller = seller;
 	}
+	
 }
